@@ -2,6 +2,12 @@ import requests
 import os
 import whois
 import datetime
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("file", nargs='?', help="Путь до файла с URL'ми для проверки'")
+args = parser.parse_args()
 
 
 def find_domain(url_string):
@@ -91,7 +97,10 @@ def get_domain_expiration_date(domain_name):
 
 
 if __name__ == '__main__':
-    urlsfile = input('Путь до файла с URL-ами -->')
+    if not args.file:
+        urlsfile = input('Путь до файла с URL-ами -->')
+    else:
+        urlsfile = args.file
     check_list = load_urls4check(urlsfile)
     if check_list is not None:
         if len(check_list):
